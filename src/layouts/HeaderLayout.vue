@@ -1,5 +1,5 @@
 <template>
-  <q-header elevated>
+  <q-header elevated class="bg-grey-9">
     <q-toolbar>
       <q-btn
         flat
@@ -9,13 +9,7 @@
         aria-label="Menu"
         @click="$emit('toggle-menu')"
       />
-
-      <q-toolbar-title>
-        <q-avatar>
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-        </q-avatar>
-        Quasar App for study
-      </q-toolbar-title>
+      <q-toolbar-title> Vue3 & Quasar App </q-toolbar-title>
       <q-btn flat>
         <q-icon name="logout"></q-icon>
       </q-btn>
