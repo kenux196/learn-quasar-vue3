@@ -10,6 +10,10 @@ const routes = [
         path: 'settings',
         component: () => import('src/pages/SettingsPage.vue'),
       },
+      {
+        path: 'quasar-test',
+        component: () => import('pages/QuasarTestPage.vue'),
+      },
     ],
   },
 

@@ -17,13 +17,22 @@ const linksList = [
   {
     title: 'Dashboard',
     icon: 'dashboard',
-    link: '/dashboard',
+    link: 'dashboard',
   },
-  { title: 'Posts', icon: 'article', link: 'posts' },
+  {
+    title: 'Posts',
+    icon: 'article',
+    link: 'posts',
+  },
   {
     title: 'Settings',
     icon: 'settings',
     link: 'settings',
+  },
+  {
+    title: 'Quasar Test',
+    icon: 'logo_dev',
+    link: 'quasar-test',
   },
 ];
 </script>
