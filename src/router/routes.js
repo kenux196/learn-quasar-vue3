@@ -21,11 +21,15 @@ const routes = [
   { path: '/posts', component: () => import('pages/PostsPage.vue') },
   {
     path: '/settings',
-    component: () => import('src/pages/SettingsPage.vue'),
+    component: () => import('pages/SettingsPage.vue'),
   },
   {
     path: '/quasar-test',
     component: () => import('pages/QuasarTestPage.vue'),
+  },
+  {
+    path: '/chart-test',
+    component: () => import('pages/ChartTestPage.vue'),
   },
 
   // Always leave this as last one,
