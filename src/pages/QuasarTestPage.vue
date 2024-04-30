@@ -10,11 +10,19 @@
     <q-btn @click="decreaseeCounter">카운트 감소</q-btn>
     <q-item class="text-weight-bold">{{ doubleCount }}</q-item>
   </div>
+  <div v-if="$q.platform.is.chrome" class="text-body1">user agent: chrome</div>
+  <div v-else-if="$q.platform.is.safari" class="text-body1">user agent : safari</div>
+  <div v-else class="text-body1">This message others</div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
 import useCounterStore from 'stores/example-store';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar();
+console.log('platform type:', $q.platform);
+console.log('lang: ', $q.lang);
 
 const counter = computed(() => {
   return useCounterStore().counter;
