@@ -15,6 +15,11 @@ import MenuBar from 'src/components/MenuBar.vue';
 
 const linksList = [
   {
+    title: 'Home',
+    icon: 'home',
+    link: '/',
+  },
+  {
     title: 'Dashboard',
     icon: 'dashboard',
     link: 'dashboard',

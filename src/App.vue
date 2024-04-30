@@ -1,9 +1,8 @@
 <template>
-  <router-view />
+  <!-- <router-view /> -->
+  <MainLayout></MainLayout>
 </template>
 
 <script setup>
-defineOptions({
-  name: 'App',
-});
+import MainLayout from '/src/layouts/MainLayout.vue';
 </script>
