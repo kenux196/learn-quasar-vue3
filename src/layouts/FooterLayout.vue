@@ -5,25 +5,23 @@
       Released under <span class="text-weight-bold">MIT License</span>.
       <div>Copyright @ 2024 kenux.yun</div>
     </div>
-    <div class="row col">
-      <div class="col-1">
-        <q-icon name="language"></q-icon>
-      </div>
-      <div class="col">
-        <q-select
-          v-model="locale"
-          :options="localeOptions"
-          dark
-          dense
-          borderless
-          emit-value
-          map-options
-          options-dense
-          label-color="white"
-          options-dark
-          style="margin-top: -9px"
-        />
-      </div>
+    <div class="col">
+      <q-select
+        v-model="locale"
+        :options="localeOptions"
+        dark
+        dense
+        borderless
+        emit-value
+        map-options
+        options-dense
+        options-dark
+        style="max-width: 150px; margin: auto"
+      >
+        <template v-slot:before>
+          <q-icon name="language" />
+        </template>
+      </q-select>
     </div>
     <div class="col-1 q-mr-sm">Quasar v{{ $q.version }}</div>
   </q-footer>
