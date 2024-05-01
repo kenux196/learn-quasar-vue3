@@ -1,7 +1,7 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh Lpr fFf">
     <Header @toggle-menu="toggleLeftDrawer" />
-    <Menu v-model="menuOpen" show-if-above elevated />
+    <Menu v-model="menuOpen" show-if-above bordered />
     <q-page-container>
       <router-view />
     </q-page-container>
