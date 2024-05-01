@@ -17,6 +17,7 @@
     <div class="text-h6 text-bold">i18n 테스트</div>
     <span>설정된 언어: {{ selectedLanguage }} / {{ $t('failed') }} / {{ $t('success') }}</span>
     <div class="text-bold">{{ currentLocale }}</div>
+    <div class="text-bold">{{ $t('jiwon') }}</div>
   </div>
 </template>
 
