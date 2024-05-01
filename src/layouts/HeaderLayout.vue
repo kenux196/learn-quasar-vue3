@@ -3,6 +3,13 @@
     <q-toolbar>
       <q-btn flat dense round icon="menu" aria-label="Menu" @click="$emit('toggle-menu')" />
       <q-toolbar-title> Vue3 & Quasar App </q-toolbar-title>
+      <q-toggle
+        v-model="darkMode"
+        checked-icon="dark_mode"
+        color="grey-10"
+        unchecked-icon="light_mode"
+        v-on:update:model-value="toggleDarkMode"
+      ></q-toggle>
       <q-btn flat>
         <q-icon name="logout"></q-icon>
       </q-btn>
@@ -14,4 +21,13 @@
     </q-toolbar>
   </q-header>
 </template>
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar();
+const darkMode = ref(false);
+function toggleDarkMode() {
+  $q.dark.set(darkMode.value);
+}
+</script>
