@@ -5,7 +5,7 @@
       Released under <span class="text-weight-bold">MIT License</span>.
       <div>Copyright @ 2024 kenux.yun</div>
     </div>
-    <div class="row col">
+    <!-- <div class="row col">
       <div class="col-1">
         <q-icon name="language"></q-icon>
       </div>
@@ -13,6 +13,23 @@
         <q-select
           v-model="lang"
           :options="langOptions"
+          dense
+          borderless
+          emit-value
+          map-options
+          options-dense
+          style="margin-top: -9px"
+        />
+      </div>
+    </div> -->
+    <div class="row col">
+      <div class="col-1">
+        <q-icon name="language"></q-icon>
+      </div>
+      <div class="col">
+        <q-select
+          v-model="locale"
+          :options="localeOptions"
           dense
           borderless
           emit-value
@@ -29,27 +46,43 @@
 import { ref, watch } from 'vue';
 import { useQuasar } from 'quasar';
 import languages from 'quasar/lang/index.json';
+import { useI18n } from 'vue-i18n';
 
 const now = ref(new Date().toLocaleString());
-const appLanguages = languages.filter((lang) => ['ko-KR', 'en-US'].includes(lang.isoName));
+// const appLanguages = languages.filter((lang) => ['ko-KR', 'en-US'].includes(lang.isoName));
 
-const langOptions = appLanguages.map((lang) => ({
-  label: lang.nativeName,
-  value: lang.isoName,
-}));
+// const langOptions = appLanguages.map((lang) => ({
+//   label: lang.nativeName,
+//   value: lang.isoName,
+// }));
 
 const $q = useQuasar();
 const lang = ref($q.lang.isoName);
 
-watch(lang, (val) => {
-  // dynamic import, so loading on demand only
-  import(
-    /* webpackInclude: /(de|en-US)\.js$/ */
-    'quasar/lang/' + val
-  ).then((lang) => {
-    $q.lang.set(lang.default);
-  });
-});
+// watch(lang, (val) => {
+//   // // dynamic import, so loading on demand only
+//   // import(
+//   //   /* webpackInclude: /(de|en-US)\.js$/ */
+//   //   'quasar/lang/' + val
+//   // ).then((lang) => {
+//   //   $q.lang.set(lang.default);
+//   // });
+//   console.log(lang.value.default);
+//   $q.lang.set(lang.value.default);
+//   console.log($q.lang.nativeName);
+// });
+
+const { locale } = useI18n({ useScope: 'global' });
+const localeOptions = [
+  {
+    value: 'ko-KR',
+    label: '한국어',
+  },
+  {
+    value: 'en-US',
+    label: 'English',
+  },
+];
 </script>
 <style>
 .lang-selector {

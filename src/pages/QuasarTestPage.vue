@@ -13,6 +13,11 @@
   <div v-if="$q.platform.is.chrome" class="text-body1">user agent: chrome</div>
   <div v-else-if="$q.platform.is.safari" class="text-body1">user agent : safari</div>
   <div v-else class="text-body1">This message others</div>
+  <div class="m-5">
+    <div class="text-h6 text-bold">i18n 테스트</div>
+    <span>설정된 언어: {{ selectedLanguage }} / {{ $t('failed') }} / {{ $t('success') }}</span>
+    <div class="text-bold">{{ currentLocale }}</div>
+  </div>
 </template>
 
 <script setup>
@@ -28,9 +33,19 @@ console.log('lang: ', $q.lang);
 const counter = computed(() => {
   return useCounterStore().counter;
 });
+
 const doubleCount = computed(() => {
   return useCounterStore().doubleCount;
 });
+
+const selectedLanguage = computed(() => {
+  return $q.lang.nativeName;
+});
+
+const currentLocale = computed(() => {
+  return $q.lang.getLocale();
+});
+
 const hello = ref('Hello Quasar!!');
 
 function increaseeCounter() {
@@ -42,4 +57,8 @@ function decreaseeCounter() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.m-5 {
+  margin: 5px;
+}
+</style>

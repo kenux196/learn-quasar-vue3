@@ -41,7 +41,7 @@ const linksList = [
   },
   {
     title: 'Chart.js test',
-    icon: 'chart',
+    icon: 'bar_chart',
     link: '/chart-test',
   },
 ];
