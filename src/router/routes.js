@@ -31,6 +31,10 @@ const routes = [
     path: '/chart-test',
     component: () => import('pages/ChartTestPage.vue'),
   },
+  {
+    path: '/gugudan',
+    component: () => import('pages/GugudanPage.vue'),
+  },
 
   // Always leave this as last one,
   // but you can also remove it

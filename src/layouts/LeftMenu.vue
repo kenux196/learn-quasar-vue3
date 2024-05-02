@@ -44,5 +44,10 @@ const linksList = [
     icon: 'bar_chart',
     link: '/chart-test',
   },
+  {
+    title: '구구단 테스트',
+    icon: 'bar_chart',
+    link: '/gugudan',
+  },
 ];
 </script>
