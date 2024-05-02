@@ -5,13 +5,13 @@
         <q-icon name="menu"></q-icon>
         Menu
       </q-item-label>
-      <MenuBar v-for="link in linksList" :key="link.title" v-bind="link" />
+      <menu-item v-for="link in linksList" :key="link.title" v-bind="link"></menu-item>
     </q-list>
   </q-drawer>
 </template>
 
 <script setup>
-import MenuBar from 'src/components/MenuBar.vue';
+import MenuItem from 'src/components/MenuItem.vue';
 
 const linksList = [
   {

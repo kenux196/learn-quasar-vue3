@@ -16,7 +16,7 @@ const routes = [
   //     },
   //   ],
   // },
-  { path: '/', component: () => import('pages/IndexPage.vue') },
+  { path: '/', component: () => import('pages/LandingPage.vue') },
   { path: '/dashboard', component: () => import('pages/DashboardPage.vue') },
   { path: '/posts', component: () => import('pages/PostsPage.vue') },
   {
