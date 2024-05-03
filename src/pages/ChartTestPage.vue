@@ -63,13 +63,30 @@ const chartOptions = ref({
       },
     },
     x: {
+      // max: 30,
+      // type: 'time',
+      // time: {
+      //   // Luxon format string
+      //   tooltipFormat: 'DD T',
+      // },
       display: true,
       grid: {
         display: true,
         drawOnChartArea: false,
+        color: 'blue',
+        // drawTicks: false,
+        // lineWidth: 1,
+        // tickWidth: 1
       },
       ticks: {
         beginAtZero: true,
+        callback: function (val, index) {
+          const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
+          labelForValue.value.push(result);
+          // Hide every 2nd tick label
+          return result;
+        },
+        color: 'red',
       },
     },
   },
@@ -82,7 +99,7 @@ const chartOptions = ref({
   maintainAspectRatio: false,
 });
 
-const DATE_COUNT = 100;
+const DATE_COUNT = 1000;
 
 const dataList = [];
 const labels = [];
@@ -95,6 +112,7 @@ function getDatas() {
     // dataList.push(data);
     dataList.push(data.y);
     const label = [data.x, data.y];
+    // const label = [data.x];
     labels.push(label);
   }
   return dataList;
