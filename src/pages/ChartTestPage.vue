@@ -1,19 +1,9 @@
 <template>
   <div>
     <q-item class="text-h4">Chart.js Test</q-item>
-    <div style="width: 800px">
+    <div style="width: 800px" class="bg-grey-3">
       <Line id="my-chart-id" :options="chartOptions" :data="chartData" />
     </div>
-  </div>
-  <div>
-    <table style="width: 800px; height: 10px">
-      <!-- <tr>
-          <th v-for="(value, index) in labelForValue" :key="index">{{ value[0] }} {{ value[1] }}</th>
-        </tr> -->
-      <tr>
-        <td v-for="(value, index) in labelForValue" :key="index">{{ value[2] }}</td>
-      </tr>
-    </table>
   </div>
 </template>
 
@@ -21,6 +11,9 @@
 import { ref, computed } from 'vue';
 import { Line } from 'vue-chartjs';
 import Chart from 'chart.js/auto';
+import zoomPlugin from 'chartjs-plugin-zoom';
+Chart.register(zoomPlugin);
+
 import { date } from 'quasar';
 
 const chartData = computed(() => {
@@ -68,10 +61,6 @@ const chartOptions = ref({
       ticks: {
         beginAtZero: true,
         callback: function (val, index, ticks) {
-          console.log('ticks = ', ticks);
-          if (index % 100 === 0) {
-            labelForValue.value.push(this.getLabelForValue(val));
-          }
           const result2 = index % 1 === 0 ? this.getLabelForValue(val) : '';
           // Hide every 2nd tick label
           return result2;
@@ -98,6 +87,21 @@ const chartOptions = ref({
   plugins: {
     legend: {
       display: false,
+    },
+    zoom: {
+      zoom: {
+        wheel: {
+          enabled: true,
+          speed: 0.1,
+        },
+        drag: {
+          enabled: true,
+          backgroundColor: 'rgba(255, 255, 0, 0.4)',
+          threshold: 0,
+          drawTime: 'beforeDatasetsDraw',
+        },
+        mode: 'x',
+      },
     },
   },
   responsive: true,
