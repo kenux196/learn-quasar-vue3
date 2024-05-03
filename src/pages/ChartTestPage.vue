@@ -89,6 +89,11 @@ const chartOptions = ref({
       display: false,
     },
     zoom: {
+      pan: {
+        enabled: true,
+        mode: 'x',
+        modifierKey: 'shift',
+      },
       zoom: {
         wheel: {
           enabled: true,
