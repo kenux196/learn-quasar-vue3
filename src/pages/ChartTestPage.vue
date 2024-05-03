@@ -6,10 +6,11 @@
     </div>
     <div>
       <table>
-        <tr v-for="(value, index) in labelForValue" :key="index">
-          <td>
-            {{ value[2] }}
-          </td>
+        <!-- <tr>
+          <th v-for="(value, index) in labelForValue" :key="index">{{ value[0] }} {{ value[1] }}</th>
+        </tr> -->
+        <tr>
+          <td v-for="(value, index) in labelForValue" :key="index">{{ value[2] }}</td>
         </tr>
       </table>
     </div>
@@ -37,20 +38,6 @@ const labelForValue = ref([]);
 
 const chartOptions = ref({
   responsive: true,
-  // scales: {
-  //   x: {
-  //     ticks: {
-  //       // For a category axis, the val is the index so the lookup via getLabelForValue is needed
-  //       callback: function (val, index) {
-  //         const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
-  //         labelForValue.value.push(result);
-  //         // Hide every 2nd tick label
-  //         return result;
-  //       },
-  //       color: 'red',
-  //     },
-  //   },
-  // },
   scales: {
     y: {
       display: true,
@@ -81,12 +68,26 @@ const chartOptions = ref({
       ticks: {
         beginAtZero: true,
         callback: function (val, index) {
-          const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
+          const result = index % 39 === 0 ? this.getLabelForValue(val) : '';
           labelForValue.value.push(result);
+          const result2 = index % 1 === 0 ? this.getLabelForValue(val) : '';
           // Hide every 2nd tick label
-          return result;
+          return result2;
         },
         color: 'red',
+        maxRotation: 0,
+        // sampleSize: 10,
+        // stepSize: 50,
+        // major: {
+        //   enabled: true,
+        // },
+        // font: function (context) {
+        //   if (context.tick && context.tick.major) {
+        //     return {
+        //       weight: 'bold',
+        //     };
+        //   }
+        // },
       },
     },
   },
@@ -105,13 +106,15 @@ const dataList = [];
 const labels = [];
 function getDatas() {
   for (let days = 0; days < DATE_COUNT; days++) {
+    const now = date.addToDate(new Date(), { days: days });
     const data = {
-      x: date.addToDate(new Date(), { days: days }).toLocaleDateString(),
+      d: now.toLocaleDateString(),
+      t: now.toTimeString().split(' ')[0],
       y: getRandomData(),
     };
     // dataList.push(data);
     dataList.push(data.y);
-    const label = [data.x, data.y];
+    const label = [data.d, data.t, data.y];
     // const label = [data.x];
     labels.push(label);
   }
