@@ -1,7 +1,7 @@
 <template>
-  <q-page>
+  <div>
     <q-item class="text-h4">Chart.js Test</q-item>
-    <div style="width: 1000px; height: 400px">
+    <div style="width: 100%">
       <Line id="my-chart-id" :options="chartOptions" :data="chartData" />
     </div>
     <div>
@@ -13,7 +13,7 @@
         </tr>
       </table>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script setup>
@@ -37,23 +37,52 @@ const labelForValue = ref([]);
 
 const chartOptions = ref({
   responsive: true,
+  // scales: {
+  //   x: {
+  //     ticks: {
+  //       // For a category axis, the val is the index so the lookup via getLabelForValue is needed
+  //       callback: function (val, index) {
+  //         const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
+  //         labelForValue.value.push(result);
+  //         // Hide every 2nd tick label
+  //         return result;
+  //       },
+  //       color: 'red',
+  //     },
+  //   },
+  // },
   scales: {
-    x: {
+    y: {
+      display: true,
+      grid: {
+        display: false,
+        drawOnChartArea: false,
+      },
       ticks: {
-        // For a category axis, the val is the index so the lookup via getLabelForValue is needed
-        callback: function (val, index) {
-          const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
-          labelForValue.value.push(result);
-          // Hide every 2nd tick label
-          return result;
-        },
-        color: 'red',
+        beginAtZero: true,
+      },
+    },
+    x: {
+      display: true,
+      grid: {
+        display: true,
+        drawOnChartArea: false,
+      },
+      ticks: {
+        beginAtZero: true,
       },
     },
   },
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  responsive: true,
+  maintainAspectRatio: false,
 });
 
-const DATE_COUNT = 1000;
+const DATE_COUNT = 100;
 
 const dataList = [];
 const labels = [];
@@ -61,7 +90,7 @@ function getDatas() {
   for (let days = 0; days < DATE_COUNT; days++) {
     const data = {
       x: date.addToDate(new Date(), { days: days }).toLocaleDateString(),
-      y: days,
+      y: getRandomData(),
     };
     // dataList.push(data);
     dataList.push(data.y);
@@ -72,6 +101,9 @@ function getDatas() {
 }
 console.log(getDatas());
 console.log(labelForValue.value);
+function getRandomData() {
+  return Math.floor(Math.random() * 100);
+}
 </script>
 
 <style lang="scss" scoped></style>
