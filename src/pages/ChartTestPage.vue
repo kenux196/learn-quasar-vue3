@@ -1,19 +1,19 @@
 <template>
   <div>
     <q-item class="text-h4">Chart.js Test</q-item>
-    <div style="width: 100%">
+    <div style="width: 800px">
       <Line id="my-chart-id" :options="chartOptions" :data="chartData" />
     </div>
-    <div>
-      <table>
-        <!-- <tr>
+  </div>
+  <div>
+    <table style="width: 800px; height: 10px">
+      <!-- <tr>
           <th v-for="(value, index) in labelForValue" :key="index">{{ value[0] }} {{ value[1] }}</th>
         </tr> -->
-        <tr>
-          <td v-for="(value, index) in labelForValue" :key="index">{{ value[2] }}</td>
-        </tr>
-      </table>
-    </div>
+      <tr>
+        <td v-for="(value, index) in labelForValue" :key="index">{{ value[2] }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -67,20 +67,24 @@ const chartOptions = ref({
       },
       ticks: {
         beginAtZero: true,
-        callback: function (val, index) {
-          const result = index % 39 === 0 ? this.getLabelForValue(val) : '';
-          labelForValue.value.push(result);
+        callback: function (val, index, ticks) {
+          console.log('ticks = ', ticks);
+          if (index % 100 === 0) {
+            labelForValue.value.push(this.getLabelForValue(val));
+          }
           const result2 = index % 1 === 0 ? this.getLabelForValue(val) : '';
           // Hide every 2nd tick label
           return result2;
         },
-        color: 'red',
+        // color: 'red',
         maxRotation: 0,
+        // crossAlign: 'center',
+        // maxTicksLimit: 11,
         // sampleSize: 10,
         // stepSize: 50,
-        // major: {
-        //   enabled: true,
-        // },
+        major: {
+          enabled: true,
+        },
         // font: function (context) {
         //   if (context.tick && context.tick.major) {
         //     return {
@@ -100,12 +104,15 @@ const chartOptions = ref({
   maintainAspectRatio: false,
 });
 
-const DATE_COUNT = 1000;
+const DATA_COUNT = 1000;
+function getIndexGap() {
+  return DATA_COUNT / 10;
+}
 
 const dataList = [];
 const labels = [];
 function getDatas() {
-  for (let days = 0; days < DATE_COUNT; days++) {
+  for (let days = 0; days < DATA_COUNT; days++) {
     const now = date.addToDate(new Date(), { days: days });
     const data = {
       d: now.toLocaleDateString(),
@@ -127,4 +134,10 @@ function getRandomData() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+table,
+th,
+td {
+  border: 1px solid black;
+}
+</style>
