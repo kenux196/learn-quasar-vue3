@@ -3,7 +3,7 @@
     <div>
       <div class="text-h2 text-weight-bolder text-center">감자 구구단 테스트</div>
     </div>
-    <div><label>시간 : </label><input type="number" v-model="limitTime" /></div>
+    <div class="text-h5 text-center q-my-md">게임화면</div>
     <div class="flex justify-evenly">
       <q-btn color="primary" label="수동 모드 시작" icon="send" class="q-my-md" @click="start" />
       <q-btn color="secondary" label="자동 모드 시작" icon="send" class="q-my-md" @click="start" />
@@ -20,6 +20,28 @@
     </div>
     <div>{{ time }}</div>
   </div>
+  <div class="flex justify-end q-gutter-md">
+    <div class="col" style="max-width: 200px">
+      <q-select
+        filled
+        v-model="limitTime"
+        :options="limitTimeOptions"
+        dense
+        label="제한시간설정"
+        :disable="isRunning"
+      ></q-select>
+    </div>
+    <div class="col" style="max-width: 200px">
+      <q-select
+        filled
+        v-model="selectedDan"
+        :options="danNumberOptions"
+        dense
+        label="단수설정"
+        :disable="isRunning"
+      ></q-select>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -27,10 +49,14 @@ import { ref, computed } from 'vue';
 
 const progress = ref(1);
 const limitTime = ref(5);
+const limitTimeOptions = ref([10, 5, 3]);
+const selectedDan = ref(null);
+const danNumberOptions = ref([2, 3, 4, 5, 6, 7, 8, 9]);
 const time = ref(limitTime.value);
 const quiz = ref('');
 const answer = ref('');
 const showAnswer = ref(false);
+const isRunning = ref(false);
 
 const remainTime = computed(() => {
   return time.value + ' 초';
@@ -59,6 +85,7 @@ function start() {
   reset();
   getQuiz();
   startTimer();
+  isRunning.value = true;
 }
 
 let intervalId;
@@ -69,6 +96,8 @@ function startTimer() {
       clearInterval(intervalId);
       setTimeout(() => {
         showAnswer.value = true;
+        isRunning.value = false;
+        progress.value = 1;
       }, 1000);
     }
   }, 1000);
@@ -78,6 +107,7 @@ function reset() {
   if (intervalId !== null) {
     clearInterval(intervalId);
   }
+  isRunning.value = false;
   showAnswer.value = false;
   time.value = limitTime.value;
   progress.value = 1;
