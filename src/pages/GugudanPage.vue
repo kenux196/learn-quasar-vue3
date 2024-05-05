@@ -3,6 +3,7 @@
     <div>
       <div class="text-h2 text-weight-bolder text-center">감자 구구단 테스트</div>
     </div>
+    <div><label>시간 : </label><input type="number" v-model="limitTime" /></div>
     <div class="flex justify-evenly">
       <q-btn color="primary" label="수동 모드 시작" icon="send" class="q-my-md" @click="start" />
       <q-btn color="secondary" label="자동 모드 시작" icon="send" class="q-my-md" @click="start" />
@@ -25,8 +26,8 @@
 import { ref, computed } from 'vue';
 
 const progress = ref(1);
-const limitTime = 5;
-const time = ref(5);
+const limitTime = ref(5);
+const time = ref(limitTime.value);
 const quiz = ref('');
 const answer = ref('');
 const showAnswer = ref(false);
@@ -63,7 +64,7 @@ function start() {
 let intervalId;
 function startTimer() {
   intervalId = setInterval(() => {
-    progress.value = --time.value / limitTime;
+    progress.value = --time.value / limitTime.value;
     if (time.value < 1) {
       clearInterval(intervalId);
       setTimeout(() => {
@@ -78,7 +79,7 @@ function reset() {
     clearInterval(intervalId);
   }
   showAnswer.value = false;
-  time.value = 5;
+  time.value = limitTime.value;
   progress.value = 1;
   quiz.value = '';
   answer.value = '';
