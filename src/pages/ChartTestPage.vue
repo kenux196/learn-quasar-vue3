@@ -66,7 +66,7 @@ const chartOptions = ref({
           return result2;
         },
         // color: 'red',
-        maxRotation: 0,
+        // maxRotation: 0,
         // crossAlign: 'center',
         // maxTicksLimit: 11,
         // sampleSize: 10,
@@ -130,7 +130,11 @@ function getDatas() {
     };
     // dataList.push(data);
     dataList.push(data.y);
-    const label = [data.d, data.t, data.y];
+    const label = [
+      data.d,
+      // data.t,
+      // data.y
+    ];
     // const label = [data.x];
     labels.push(label);
   }
