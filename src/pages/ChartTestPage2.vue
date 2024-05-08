@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-item class="text-h4">Chart.js Test</q-item>
-    <div style="width: 800px" class="bg-grey-3">
+    <div style="width: 800px">
       <Line id="my-chart-id2" :options="chartOptions" :data="chartData" />
     </div>
   </div>
@@ -23,6 +23,7 @@ const chartData = computed(() => {
       {
         data: dataList,
         xAxisID: 'x-axis-1',
+        pointStyle: false,
       },
       {
         // data: dataList,
@@ -34,11 +35,17 @@ const chartData = computed(() => {
 
 const chartOptions = ref({
   responsive: true,
+  layout: {
+    padding: {
+      left: 10,
+      right: 10,
+    },
+  },
   scales: {
     y: {
       display: true,
       grid: {
-        display: false,
+        display: true,
         drawOnChartArea: false,
       },
       ticks: {
@@ -53,21 +60,21 @@ const chartOptions = ref({
         callback: function (val, index, ticks) {
           console.log('ticks: ', ticks[index]);
           const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
-          return result;
+          return [result[0], result[1]];
         },
         maxTicksLimit: 10,
       },
     },
     'x-axis-2': {
       display: true,
-      grid: {
-        display: true,
-        drawOnChartArea: false,
-        color: 'blue',
-        // drawTicks: false,
-        // lineWidth: 1,
-        // tickWidth: 1,
-      },
+      // grid: {
+      //   display: true,
+      //   drawOnChartArea: false,
+      //   drawTicks: true,
+      //   color: function (context) {
+      //     return 'rgba(255,0,0,1)';
+      //   },
+      // },
       ticks: {
         beginAtZero: true,
         callback: function (val, index, ticks) {
@@ -80,8 +87,6 @@ const chartOptions = ref({
         color: 'red',
         maxRotation: 0,
         maxTicksLimit: 10,
-        // autoSkip: true,
-        // autoSkipPadding: 50,
       },
     },
   },
@@ -120,7 +125,6 @@ function getIndexGap() {
 }
 
 const dataList = [];
-const dataList2 = [];
 const labels = [];
 function getDatas() {
   for (let days = 0; days < DATA_COUNT; days++) {
@@ -130,17 +134,9 @@ function getDatas() {
       t: now.toTimeString().split(' ')[0],
       y: getRandomData(),
     };
-    // dataList.push(data);
     dataList.push(data.y);
     const label = [data.d, data.t, data.y];
-    // const label = [data.x];
     labels.push(label);
-    const data2 = {
-      x: data.y,
-      y: data.y,
-    };
-    dataList2.push(data);
-    // console.log('dataList2: ', dataList2);
   }
 }
 getDatas();
