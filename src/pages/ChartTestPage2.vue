@@ -82,7 +82,8 @@ const chartOptions = ref({
           // console.log('value: ', val);
           const result2 = index % 1 === 0 ? this.getLabelForValue(val) : '';
           console.log(result2);
-          return '         ' + result2[2] + '         ';
+          // return '         ' + result2[2] + '         ';
+          return result2[2];
         },
         color: 'red',
         maxRotation: 0,
