@@ -32,6 +32,10 @@ const routes = [
     component: () => import('pages/ChartTestPage.vue'),
   },
   {
+    path: '/chart-test2',
+    component: () => import('pages/ChartTestPage2.vue'),
+  },
+  {
     path: '/gugudan',
     component: () => import('pages/GugudanPage.vue'),
   },

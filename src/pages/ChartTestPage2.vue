@@ -2,7 +2,7 @@
   <div>
     <q-item class="text-h4">Chart.js Test</q-item>
     <div style="width: 800px" class="bg-grey-3">
-      <Line id="my-chart-id" :options="chartOptions" :data="chartData" />
+      <Line id="my-chart-id2" :options="chartOptions" :data="chartData" />
     </div>
   </div>
 </template>
@@ -22,12 +22,15 @@ const chartData = computed(() => {
     datasets: [
       {
         data: dataList,
+        xAxisID: 'x-axis-1',
+      },
+      {
+        data: dataList,
+        xAxisID: 'x-axis-2',
       },
     ],
   };
 });
-
-const labelForValue = ref([]);
 
 const chartOptions = ref({
   responsive: true,
@@ -42,13 +45,14 @@ const chartOptions = ref({
         beginAtZero: true,
       },
     },
-    x: {
-      // max: 30,
-      // type: 'time',
-      // time: {
-      //   // Luxon format string
-      //   tooltipFormat: 'DD T',
-      // },
+    'x-axis-1': {
+      ticks: {
+        beginAtZero: true,
+        color: 'black',
+        maxRotation: 0,
+      },
+    },
+    'x-axis-2': {
       display: true,
       grid: {
         display: true,
@@ -56,40 +60,21 @@ const chartOptions = ref({
         color: 'blue',
         // drawTicks: false,
         // lineWidth: 1,
-        // tickWidth: 1
+        // tickWidth: 1,
       },
       ticks: {
         beginAtZero: true,
         callback: function (val, index, ticks) {
           // console.log('ticks: ', ticks[index]);
+          // console.log('value: ', val);
           const result2 = index % 1 === 0 ? this.getLabelForValue(val) : '';
-          return result2;
+          console.log(result2);
+          return result2[2];
         },
-        // color: 'red',
+        color: 'red',
         maxRotation: 0,
-        // crossAlign: 'center',
-        // maxTicksLimit: 11,
-        // sampleSize: 10,
-        // stepSize: 50,
-        // major: {
-        //   enabled: true,
-        // },
-        color: function (context) {
-          console.log('context: ', context);
-          if (context.tick.label[0]) {
-            console.log('11111');
-            return 'red';
-          }
-          if (context.tick.label[1]) {
-            console.log('22222');
-            return 'red';
-          }
-          if (context.tick.label[2]) {
-            console.log('333333');
-            return 'red';
-          }
-          return 'black';
-        },
+        // autoSkip: true,
+        // autoSkipPadding: 50,
       },
     },
   },
@@ -122,7 +107,7 @@ const chartOptions = ref({
   maintainAspectRatio: false,
 });
 
-const DATA_COUNT = 10;
+const DATA_COUNT = 100;
 function getIndexGap() {
   return DATA_COUNT / 10;
 }
@@ -143,12 +128,15 @@ function getDatas() {
     const label = [data.d, data.t, data.y];
     // const label = [data.x];
     labels.push(label);
-    dataList2.push(data.y);
+    const data2 = {
+      x: data.y,
+      y: data.y,
+    };
+    dataList2.push(data);
+    // console.log('dataList2: ', dataList2);
   }
-  return dataList;
 }
-console.log(getDatas());
-console.log(labelForValue.value);
+getDatas();
 function getRandomData() {
   return Math.floor(Math.random() * 100);
 }

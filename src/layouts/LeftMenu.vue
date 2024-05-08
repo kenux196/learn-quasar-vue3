@@ -45,6 +45,11 @@ const linksList = [
     link: '/chart-test',
   },
   {
+    title: 'Chart.js test 2',
+    icon: 'bar_chart',
+    link: '/chart-test2',
+  },
+  {
     title: '구구단 테스트',
     icon: 'bar_chart',
     link: '/gugudan',
