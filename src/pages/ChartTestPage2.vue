@@ -50,6 +50,11 @@ const chartOptions = ref({
         beginAtZero: true,
         color: 'black',
         maxRotation: 0,
+        callback: function (val, index, ticks) {
+          console.log('ticks: ', ticks[index]);
+          const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
+          return result;
+        },
       },
     },
     'x-axis-2': {
@@ -65,11 +70,11 @@ const chartOptions = ref({
       ticks: {
         beginAtZero: true,
         callback: function (val, index, ticks) {
-          // console.log('ticks: ', ticks[index]);
+          console.log('ticks: ', ticks[index]);
           // console.log('value: ', val);
           const result2 = index % 1 === 0 ? this.getLabelForValue(val) : '';
           console.log(result2);
-          return result2[2];
+          return '         ' + result2[2] + '         ';
         },
         color: 'red',
         maxRotation: 0,
@@ -107,7 +112,7 @@ const chartOptions = ref({
   maintainAspectRatio: false,
 });
 
-const DATA_COUNT = 100;
+const DATA_COUNT = 1000;
 function getIndexGap() {
   return DATA_COUNT / 10;
 }
