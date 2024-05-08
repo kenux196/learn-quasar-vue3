@@ -25,7 +25,7 @@ const chartData = computed(() => {
         xAxisID: 'x-axis-1',
       },
       {
-        data: dataList,
+        // data: dataList,
         xAxisID: 'x-axis-2',
       },
     ],
@@ -55,6 +55,7 @@ const chartOptions = ref({
           const result = index % 1 === 0 ? this.getLabelForValue(val) : '';
           return result;
         },
+        maxTicksLimit: 10,
       },
     },
     'x-axis-2': {
@@ -78,6 +79,7 @@ const chartOptions = ref({
         },
         color: 'red',
         maxRotation: 0,
+        maxTicksLimit: 10,
         // autoSkip: true,
         // autoSkipPadding: 50,
       },
