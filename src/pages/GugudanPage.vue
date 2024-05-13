@@ -5,12 +5,11 @@
     </div>
     <div class="text-h5 text-center q-my-md">게임화면</div>
     <div class="flex justify-evenly">
-      <q-btn color="primary" label="문제내기" icon="send" class="q-my-md" @click="startLearnMode" />
-      <q-btn color="primary" label="정답확인" icon="send" class="q-my-md" @click="checkAnswer" />
+      <q-btn color="primary" :label="quizLabel" icon="send" class="q-my-md" @click="startLearnMode" />
       <q-btn color="secondary" label="시험 모드 시작" icon="send" class="q-my-md" @click="startTestMode" />
     </div>
-    <div class="text-h2 text-bold q-my-md text-center" style="min-height: 120px">
-      <span>문제 : {{ quiz }} </span>
+    <div class="text-h1 text-bold q-my-md text-center" style="min-height: 120px">
+      <span>{{ quiz }} </span>
       <span v-if="showAnswer">{{ answer }}</span>
     </div>
     <div class="flex">
@@ -56,6 +55,7 @@ const selectedDan = ref(null);
 const danNumberOptions = ref([2, 3, 4, 5, 6, 7, 8, 9]);
 const time = ref(limitTime.value);
 const quiz = ref('');
+const quizLabel = ref('문제내기');
 const answer = ref('');
 const showAnswer = ref(false);
 const isRunning = ref(false);
@@ -91,12 +91,18 @@ function startTestMode() {
 }
 
 function startLearnMode() {
+  if (quiz.value && !showAnswer.value) {
+    checkAnswer();
+    quizLabel.value = '문제내기';
+    return;
+  }
   reset();
   getQuiz();
+  quizLabel.value = '정답확인';
 }
 
 function checkAnswer() {
-  showAnswer.value = true;
+  showAnswer.value = !showAnswer.value;
 }
 
 let intervalId;
