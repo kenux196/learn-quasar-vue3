@@ -5,11 +5,13 @@
     </div>
     <div class="text-h5 text-center q-my-md">게임화면</div>
     <div class="flex justify-evenly">
-      <q-btn color="primary" label="수동 모드 시작" icon="send" class="q-my-md" @click="start" />
-      <q-btn color="secondary" label="자동 모드 시작" icon="send" class="q-my-md" @click="start" />
+      <q-btn color="primary" label="문제내기" icon="send" class="q-my-md" @click="startLearnMode" />
+      <q-btn color="primary" label="정답확인" icon="send" class="q-my-md" @click="checkAnswer" />
+      <q-btn color="secondary" label="시험 모드 시작" icon="send" class="q-my-md" @click="startTestMode" />
     </div>
-    <div class="text-h1 text-bold q-my-md text-center" style="min-height: 120px">
-      <span>{{ quiz }} </span><span v-if="showAnswer">{{ answer }}</span>
+    <div class="text-h2 text-bold q-my-md text-center" style="min-height: 120px">
+      <span>문제 : {{ quiz }} </span>
+      <span v-if="showAnswer">{{ answer }}</span>
     </div>
     <div class="flex">
       <q-linear-progress stripe rounded size="50px" color="red" animation-speed="500" :value="progress">
@@ -81,11 +83,20 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-function start() {
+function startTestMode() {
   reset();
   getQuiz();
   startTimer();
   isRunning.value = true;
+}
+
+function startLearnMode() {
+  reset();
+  getQuiz();
+}
+
+function checkAnswer() {
+  showAnswer.value = true;
 }
 
 let intervalId;
