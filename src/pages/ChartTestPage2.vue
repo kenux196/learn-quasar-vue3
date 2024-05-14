@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-item class="text-h4">Chart.js Test</q-item>
-    <div style="width: 800px">
+    <div class="chart-area">
       <Line id="my-chart-id2" :options="chartOptions" :data="chartData" />
     </div>
   </div>
@@ -147,9 +147,8 @@ function getRandomData() {
 </script>
 
 <style lang="scss" scoped>
-table,
-th,
-td {
-  border: 1px solid black;
+.chart-area {
+  width: 800px;
+  background-color: antiquewhite;
 }
 </style>

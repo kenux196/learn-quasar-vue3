@@ -18,11 +18,17 @@
   </q-header>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useQuasar } from 'quasar';
 
 const $q = useQuasar();
 const darkMode = ref(false);
+
+onMounted(() => {
+  darkMode.value = new Date().getHours() >= 18 ? true : false;
+  toggleDarkMode();
+});
+
 function toggleDarkMode() {
   $q.dark.set(darkMode.value);
 }
