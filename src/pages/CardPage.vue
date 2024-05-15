@@ -6,7 +6,7 @@
   <div class="row q-col-gutter-lg">
     <div v-for="m in members" :key="m.name" class="col-6 col-md-4">
       <q-btn v-if="!m.editable" unelevated dense flat size="sm" color="grey" icon="edit" @click="m.editable = true" />
-      <q-btn v-else unelevated dense round size="sm" color="primary" icon="check" @click="m.editable = false" />
+      <q-btn v-else unelevated dense round size="sm" color="primary" icon="check" @click="store(m.mid)" />
       <member-card
         :mid="m.mid"
         :name="m.name"
@@ -26,9 +26,12 @@
 </template>
 
 <script setup>
-import { uid } from 'quasar';
+import { uid, useQuasar } from 'quasar';
 import { reactive, defineAsyncComponent } from 'vue';
 
+const $q = useQuasar();
+
+// const members = reactive([$q.sessionStorage.getItem('members') || []]);
 const members = reactive([
   { mid: uid(), name: '디에잇', team: '세븐틴', contact: '010-1234-1234', editable: false },
   { mid: uid(), name: '도겸', team: '세븐틴', contact: '010-1234-1111', editable: false },
@@ -54,6 +57,14 @@ const update = (mid, key, val) => {
   const findMember = members.find((m) => m.mid === mid);
   if (findMember) {
     findMember[key] = val;
+  }
+};
+
+const store = (mid) => {
+  const findMember = members.find((m) => m.mid === mid);
+  if (findMember) {
+    findMember.editable = false;
+    $q.sessionStorage.set('members', members);
   }
 };
 </script>
