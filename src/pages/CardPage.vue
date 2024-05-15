@@ -1,27 +1,37 @@
 <template>
-  <div class="text-h1 text-center">카드 만들기</div>
+  <div class="text-h3 text-center">카드 만들기</div>
+  <div class="row justify-end q-pb-sm">
+    <q-btn dense icon="add" round color="positive" @click="addMember"></q-btn>
+  </div>
   <div class="row q-col-gutter-lg">
     <div v-for="m in members" :key="m.name" class="col-6 col-md-4">
-      <q-card>
-        <div class="text-center bg-primary text-white">회원</div>
-        <q-card-section>
-          <div>{{ m.name }}</div>
-          <div>{{ m.team }}</div>
-          <div>{{ m.contact }}</div>
-        </q-card-section>
-      </q-card>
+      <member-card :mid="m.mid" :name="m.name" :team="m.team" :contact="m.contact"></member-card>
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { uid } from 'quasar';
+import { reactive, defineAsyncComponent } from 'vue';
 
 const members = reactive([
-  { name: '홍길동', team: '디자인팀', contact: '010-1234-1234' },
-  { name: '윤지원', team: '초등학생', contact: '010-1234-1111' },
-  { name: '윤아준', team: '초등학생', contact: '010-1234-2222' },
+  { mid: uid(), name: '디에잇', team: '세븐틴', contact: '010-1234-1234' },
+  { mid: uid(), name: '도겸', team: '세븐틴', contact: '010-1234-1111' },
+  { mid: uid(), name: '안유진', team: '아이브', contact: '010-1234-2222' },
+  { mid: uid(), name: '아이유', team: '아이유', contact: '010-1234-2222' },
+  { mid: uid(), name: '장원영', team: '아이브', contact: '010-1234-2222' },
 ]);
+
+const MemberCard = defineAsyncComponent(() => import('../components/MemberCard.vue'));
+
+const addMember = () => {
+  members.unshift({
+    mid: uid(),
+    name: '',
+    team: '',
+    contact: '',
+  });
+};
 </script>
 
 <style lang="scss" scoped></style>
