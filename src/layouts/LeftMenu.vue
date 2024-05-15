@@ -35,6 +35,11 @@ const linksList = [
     link: '/settings',
   },
   {
+    title: 'Card Sample',
+    icon: 'dashboard',
+    link: '/Card-sample',
+  },
+  {
     title: 'Quasar Test',
     icon: 'logo_dev',
     link: '/quasar-test',

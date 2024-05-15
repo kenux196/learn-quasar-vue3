@@ -28,6 +28,10 @@ const routes = [
     component: () => import('pages/QuasarTestPage.vue'),
   },
   {
+    path: '/card-sample',
+    component: () => import('pages/CardPage.vue'),
+  },
+  {
     path: '/chart-test',
     component: () => import('pages/ChartTestPage.vue'),
   },
