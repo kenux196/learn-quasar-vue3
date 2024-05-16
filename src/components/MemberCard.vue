@@ -49,7 +49,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update']);
+const emit = defineEmits(['upsert', 'remove']);
 
 const name = ref(props.data.name);
 const team = ref(props.data.team);
