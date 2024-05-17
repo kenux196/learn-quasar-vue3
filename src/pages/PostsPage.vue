@@ -5,7 +5,7 @@
   </div>
   <div class="q-ma-md q-pa-md bg-grey-10 row justify-center">
     <table style="width: 100%">
-      <caption class="text-h4 q-mb-md">
+      <caption class="text-h5 q-mb-md" style="text-align: start">
         Pure HTML Table
       </caption>
       <thead>
