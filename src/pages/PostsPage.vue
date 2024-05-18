@@ -34,7 +34,8 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { data } from 'autoprefixer';
+import { onMounted, reactive } from 'vue';
 
 const columns = [
   {
@@ -51,32 +52,23 @@ const columns = [
   { name: 'writer', align: 'center', label: 'writer', field: 'writer', sortable: false },
 ];
 
-const rows = reactive([
-  {
-    id: 1,
-    title: '이것은 샘플1 제목입니다.',
-    date: '2024-05-12',
-    writer: 'kenux',
-  },
-  {
-    id: 2,
-    title: '이것은 샘플2 제목입니다. AAA',
-    date: '2024-05-13',
-    writer: 'kenux',
-  },
-  {
-    id: 3,
-    title: '이것은 샘플3 제목입니다. BBBBBBBB',
-    date: '2024-05-14',
-    writer: 'kenux',
-  },
-  {
-    id: 4,
-    title: '이것은 샘플4 제목입니다. CCCCCCCCCCCCCCC',
-    date: '2024-05-15',
-    writer: 'kenux',
-  },
-]);
+const rows = reactive([]);
+
+const createSampleRows = () => {
+  for (let i = 1; i < 10; i++) {
+    const data = {
+      id: i,
+      title: `샘플 ${i} 제목이에요~~`,
+      date: new Date().toLocaleString(),
+      writer: 'kenux',
+    };
+    rows.push(data);
+  }
+};
+
+onMounted(() => {
+  createSampleRows();
+});
 </script>
 
 <style lang="scss" scoped>
