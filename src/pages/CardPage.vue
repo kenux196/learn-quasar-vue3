@@ -4,17 +4,8 @@
     <q-btn dense icon="add" round color="positive" @click="addMember"></q-btn>
   </div>
   <div class="row q-col-gutter-lg">
-    <div v-for="m in members" :key="m.mid" class="col-6 col-md-4">
-      <q-btn v-if="!m.editable" unelevated dense flat size="sm" color="grey" icon="edit" @click="m.editable = true" />
-      <q-btn v-else unelevated dense round size="sm" color="primary" icon="check" @click="store(m.mid)" />
-      <member-card
-        :mid="m.mid"
-        :name="m.name"
-        :team="m.team"
-        :contact="m.contact"
-        :editable="m.editable"
-        @update="update"
-      ></member-card>
+    <div v-for="m in members" :key="m" class="col-6 col-md-4">
+      <member-card :data="m" @upsert="upsert" @remove="remove"></member-card>
     </div>
   </div>
   <div class="bg-grey q-mt-md">
@@ -40,7 +31,6 @@ const addMember = () => {
     name: '',
     team: '',
     contact: '',
-    editable: false,
   });
 };
 
@@ -74,6 +64,45 @@ const store = (mid) => {
 function getMember(mid) {
   return members.find((m) => m.mid === mid);
 }
+
+const upsert = (data, done) => {
+  const findMember = members.find((m) => m.mid === data.mid);
+  const storageMembers = $q.sessionStorage.getItem('members') || [];
+  const findStorageMember = storageMembers.find((m) => m.mid === data.mid);
+
+  if (findMember) {
+    findMember.name = data.name;
+    findMember.team = data.team;
+    findMember.contact = data.contact;
+
+    if (findStorageMember) {
+      findStorageMember.name = data.name;
+      findStorageMember.team = data.team;
+      findStorageMember.contact = data.contact;
+    } else {
+      storageMembers.unshift(findMember);
+    }
+  }
+  $q.sessionStorage.set('members', storageMembers);
+
+  done();
+};
+
+const remove = (mid) => {
+  const findIndex = members.findIndex((m) => m.mid === mid);
+  const storageMembers = $q.sessionStorage.getItem('members') || [];
+  const findStorageIndex = storageMembers.findIndex((m) => m.mid === mid);
+
+  if (findIndex !== -1) {
+    members.splice(findIndex, 1);
+
+    if (findStorageIndex !== -1) {
+      storageMembers.splice(findStorageIndex, 1);
+    }
+  }
+
+  $q.sessionStorage.set('members', storageMembers);
+};
 </script>
 
 <style lang="scss" scoped></style>
